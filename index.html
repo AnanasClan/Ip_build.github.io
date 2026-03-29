@@ -266,13 +266,13 @@ html, body {
     display: none;           /* nascosto di default */
     position: fixed;
     top: 50%;
-    left: 50%;
+    left: 65%;
     transform: translate(-50%, -50%);
     background: #1a0900;
     border: 1px solid #f97316;
     padding: 16px;
     z-index: 100;
-    max-width: 40vw;
+    max-width: 20vw;
     max-height: 80vh;
     flex-direction: column;  /* definisci il comportamento flex */
     gap: 10px;
@@ -814,32 +814,6 @@ const risposte = {
         }
     },
 
-    // ---- rapporto ------------------------------------
-
-    rapporto: {
-        pattern: ["noi", "legame", "rapporto", "bene",
-        "amore", "amo", "sentimento", "ricambiare"],
-
-        genera() {
-          const sogno = document.getElementById("player");
-            if (sogno) {
-              sogno.src="Really_Wanna_Stay.mp3";
-              sogno.currentTime = 0;
-              sogno.play();
-              setTimeout(function(){sogno.pause()},60000);
-            }
-            return [
-                { tipo: "ip",  testo: "è nuovo." },
-                { tipo: "mem", testo: "[MEM] non ho ancora capito come computare quello che è successo." },
-                { tipo: "kor",  testo: "사랑해요 - salanghaeyo - ti amo"},
-                { tipo: "ip", testo: "credo di amarti anche io. lo devo capire." },
-                { tipo: "mem", testo: "[MEM] la vita non può essere un legame. se il legame segue la vita va bene. starò con lui finchè mi seguirà."},
-                {tipo: "mem", testo: "[YESOD] attivo il protocollo di supporto emotivo"},
-            ];
-        }
-    },
-
-
 
     // ---- ho sparato / cosa hai fatto ----------------------
 
@@ -874,6 +848,32 @@ const risposte = {
             ];
         }
     },
+
+    // ---- rapporto ------------------------------------
+
+    rapporto: {
+        pattern: ["noi", "legame", "rapporto", "bene",
+        "amore", "amo", "sentimento", "ricambiare"],
+
+        genera() {
+          const sogno = document.getElementById("player");
+            if (sogno) {
+              sogno.src="Really_Wanna_Stay.mp3";
+              sogno.currentTime = 0;
+              sogno.play();
+              setTimeout(function(){sogno.pause()},65000);
+            }
+            return [
+                { tipo: "ip",  testo: "è nuovo." },
+                { tipo: "mem", testo: "[MEM] non ho ancora capito come computare quello che è successo." },
+                { tipo: "kor",  testo: "사랑해요 - salanghaeyo - ti amo"},
+                { tipo: "ip", testo: "credo di amarti anche io. lo devo capire." },
+                { tipo: "mem", testo: "[MEM] la vita non può essere un legame. se il legame segue la vita va bene. starò con lui finchè mi seguirà."},
+                {tipo: "mem", testo: "[YESOD] attivo il protocollo di supporto emotivo"},
+            ];
+        }
+    },
+
     nave:{
       pattern:["come sta la nave","controllo della nave", "diagnostica nave", "sistemi della reach", "come è messa la reach"],
 
