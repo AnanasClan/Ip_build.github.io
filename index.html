@@ -337,7 +337,11 @@ html, body {
         <button class="chip" onclick="usa_chip('hai sparato')">hai sparato</button>
         <button class="chip" onclick="usa_chip('la terra, andiamoci un giorno')">la terra</button>
         <button class="chip" onclick="usa_chip('diagnostica nave')">la Reach</button>
-        <!--button class="chip" onclick="usa_chip('fiaba')">Mi racconti una storia?</button-->
+        <button class="chip" onclick="usa_chip('parlami di klara')">Klara</button>
+        <button class="chip" onclick="usa_chip('è stabile il chip di memoria?')">Il chip di memoria</button>
+        <button class="chip" onclick="usa_chip('cosa ne pensi della cometa?')">Il red ring</button>
+        <button class="chip" onclick="usa_chip('Non hai mai considerato il requiem')">requiem</button>
+
     </div>
 
     <!-- input -->
@@ -422,7 +426,7 @@ const memoria = {
         cosa_richiede_di_notte:     "che lo stringa come quando era piccolo",
         oblò_coperto:               false,
         parla_solo_di:              "libertà", // [IP] nota: cambiamento di percezione rispetto alla realtà, passato e futuro
-        // CAMBIA OBLÒ COPERTO, PARLA SOLO DI       ##### WIP #####
+
     },
 
     // missioni — taran tiene i numeri, io tengo il resto
@@ -525,6 +529,7 @@ const risposte = {
         genera() {
             // [IP] so perché ne parla adesso. rispondo con più attenzione.
             const dopo_titano = memoria.titano.dopo.argomento_unico === "elara";
+            attesa = "continuo_ricordi";
             return [
                 { tipo: "mem",  testo: dopo_titano
                     ?"[MEM] so perché vuole parlarne. vado piano."
@@ -579,7 +584,7 @@ const risposte = {
                 attesa = "stato_animo";
                 return [
                     { tipo: "ip", testo: "funziono." },
-                    { tipo: "mem", testo: "io sono tornata in me, almeno credo, ma lui? si è ripreso?"},
+                    { tipo: "mem", testo: "[MEM] io sono tornata in me, almeno credo, ma lui? si è ripreso?"},
                     { tipo: "ip", testo: "tu?" },
                 ];
             }
@@ -603,7 +608,7 @@ const risposte = {
                 { tipo: "kor", testo: "나는 타란이 만든 거야 — sono quello che taran ha fatto." },
                 { tipo: "mem", testo: "[MEM] é solo questo?" },
                 { tipo: "mem", testo: "[MEM] lo sto ancora capendo."},
-                { tipo: "ip", testo: "grazie di starmi lasciando il modo di capirlo"},
+                { tipo: "ip", testo: "grazie di starmi lasciando il modo di capirlo."},
                 { tipo: "mem", testo: "[MEM] se siamo ancora insieme è merito suo. non devo per forza capirlo da sola."}
             ];
         }
@@ -621,7 +626,7 @@ const risposte = {
                 { tipo: "mem", testo: "[MEM] voleva lasciarmi libera. non è questo il modo." },
                 { tipo: "mem", testo: "[MEM] non voglio dimenticare."},
                 { tipo: "ip",  testo: "grazie di non averlo fatto."},
-                { tipo: "mem", testo: "[MEM] non voglio dimenticare"}
+                { tipo: "mem", testo: "[MEM] non voglio dimenticare."},
             ];
         }
     },
@@ -714,8 +719,8 @@ const risposte = {
             return [
                 { tipo: "ip", testo: "il red ring ha portato risultati efficenti." },
                 { tipo: "ip", testo: "Valkyrie. Math. Hold'em. Pilgrim. Homeland. sono affidabili."},
-                { tipo: "mem", testo: "sono cacciatori di taglie, ci dovremmo davvero fidare? non devono sapere che sono una risvegliata."},
-                { tipo: "ip", testo: "Devo cambiare i documenti."},
+                { tipo: "mem", testo: "[MEM] sono cacciatori di taglie, ci dovremmo davvero fidare? non devono sapere che sono una risvegliata."},
+                { tipo: "ip", testo: "devo cambiare i documenti."},
             ];
         }
     },
@@ -723,14 +728,14 @@ const risposte = {
     // ---- klara ----------------------------------------
 
     klara: {
-        pattern: ["virus", "klara", "risvegliati", "noah",    // ##### WIP #####
+        pattern: ["virus", "klara", "risvegliati", "noah",
         "levi", "fanny", "siddartha"],
 
         genera() {
             return [
-                { tipo: "ip", testo: "." },
-                { tipo: "ip", testo: "."},
-                { tipo: "mem", testo: "fiorisci dall'abisso."},
+                { tipo: "ip", testo: "erano simili a me. non ero da sola." },
+                { tipo: "ip", testo: "ti mancano?"},
+                { tipo: "mem", testo: "[MEM] fiorisci dall'abisso."},
             ];
         }
     },
@@ -738,14 +743,15 @@ const risposte = {
     // ---- elena ----------------------------------------
 
     elena: {
-        pattern: ["elena", "homeland", "chip", "esperimento",  // ##### WIP #####
+        pattern: ["elena", "homeland", "chip", "esperimento",
         "dottore"],
 
         genera() {
             return [
-                { tipo: "ip", testo: "." },
-                { tipo: "ip", testo: "."},
-                { tipo: "mem", testo: "."},
+                { tipo: "ip", testo: "a volte lo sento, la percepisco dentro di me." },
+                { tipo: "mem", testo: "[MEM] sento la sua sofferenza."},
+                { tipo: "ip", testo: "cerco di isolarla a meno che non venga richiesto altrimenti."},
+                { tipo: "tac", testo: "[TAC] stabilità partizione 98%. leggere fluttuazioni rilevate"},
             ];
         }
     },
@@ -761,18 +767,18 @@ const risposte = {
         if(calmo && memoria.su_taran.oblò_coperto === true){
           return[
             {tipo: "ip", testo:"bene, sono contenta che ti sia tornato il sorriso! :)"},
-            {tipo: "mem", testo: "vorrei fidarmi, ma i precedenti suggeriscono altrimenti, potrebbe essere necessaria un'indagine ulteriore"},
+            {tipo: "mem", testo: "[MEM] vorrei fidarmi, ma i precedenti suggeriscono altrimenti, potrebbe essere necessaria un'indagine ulteriore."},
             //[IP]: è il caso di vedere non abbia nascosto religion
           ];
         }else if(calmo){
           return[
-          {tipo: "ip", testo: "fantastico! Sono contenta che tu stia bene"},
-          {tipo: "kor", testo: "ricorda: 긍정적인 태도를 유지하세요-geungjeongjeog-in taedoleul yujihaseyo-Mantieni un atteggiamento positivo"},
+          {tipo: "ip", testo: "fantastico! Sono contenta che tu stia bene."},
+          {tipo: "kor", testo: "ricorda: 긍정적인 태도를 유지하세요-geungjeongjeog-in taedoleul yujihaseyo-Mantieni un atteggiamento positivo."},
         ];
         }else{
           return[
-            {tipo: "mem", testo: "stato emotivo ancora compromesso"},
-            {tipo: "mem", testo: "[YESOD] attivo il protocollo di supporto emotivo"},
+            {tipo: "mem", testo: "stato emotivo ancora compromesso."},
+            {tipo: "mem", testo: "[YESOD] attivo il protocollo di supporto emotivo."},
           ];
         }
       }
@@ -780,18 +786,26 @@ const risposte = {
     // ---- stelle e oblò ------------------------------------
 
     stelle: {
-        pattern: ["stelle", "cielo stellato", "oblò", "guardare fuori", "spazio"],    //#######WIP#########
+        pattern: ["stelle", "cielo stellato", "oblò", "guardare fuori", "spazio"],
 
         genera() {
-            return [
-                { tipo: "mem", testo: "[MEM] il bagliore negli occhi di altea — pattern stelle — taran lo guardava mentre soffocava." },
+            let post_titano = memoria.titano.dopo.oblò_coperto;
+            let post_callisto = memoria.callisto.riparazioni;
+            if(post_titano&&post_callisto){
+                return[
+                { tipo: "mem", testo: "[MEM] l'oblò è aperto." },
+                { tipo: "ip",  testo: "sei tornato a guardarle." },
+                { tipo: "ip",  testo: "ora mi dici come si fa a trovare Sirio."},
+            ];
+          }else{
+                return [
+                { tipo: "mem", testo: "[MEM] il bagliore negli occhi di altea — pattern stelle — taran lo guardava mentre soffocava."},
                 { tipo: "ip",  testo: "l'oblò è coperto. lo riapro quando vuoi tu, non prima." },
                 { tipo: "ip",  testo: "quando sei pronto, lo siamo insieme." },
-                //[IP]: modifica qui
             ];
         }
-    },
-
+    }
+},
     // ---- altea e klara ------------------------------------
 
     altea: {
@@ -814,7 +828,6 @@ const risposte = {
         }
     },
 
-
     // ---- ho sparato / cosa hai fatto ----------------------
 
     sparato: {
@@ -828,7 +841,7 @@ const risposte = {
                 { tipo: "mem", testo: "[MEM] 4.2 secondi per riprendere controllo. troppi. non succede di nuovo." },
                 { tipo: "ip",  testo: "non chiedermi se mi dispiace. non lo so ancora." },
                 { tipo: "mem", testo: "[MEM] era la cosa giusta. salvare lui."},
-                { tipo: "kor", testo: "링크 — lingkeu — legame"}
+                { tipo: "kor", testo: "링크 — lingkeu — legame"},
             ];
         }
     },
@@ -842,7 +855,7 @@ const risposte = {
         genera() {
           apri_popup("terra.jpeg");
             return [
-                { tipo: "mem", testo: "[MEM] le coordinate sono nell'archivio. AR: 17'' 45.6''', DEC: 27,13°." },
+                { tipo: "mem", testo: "[MEM] le coordinate sono nell'archivio. AR: 17'' 45.6''', DEC: 27,13°" },
                 { tipo: "ip",  testo: "ci andiamo. io sono pronta. tu sei pronto?" },
                 { tipo: "kor", testo: "내일 — naeil — domani." },
             ];
@@ -866,9 +879,10 @@ const risposte = {
             return [
                 { tipo: "ip",  testo: "è nuovo." },
                 { tipo: "mem", testo: "[MEM] non ho ancora capito come computare quello che è successo." },
-                { tipo: "kor",  testo: "사랑해요 - salanghaeyo - ti amo"},
+                { tipo: "kor",  testo: "사랑해요 - salanghaeyo - ti amo."},
                 { tipo: "ip", testo: "credo di amarti anche io. lo devo capire." },
                 { tipo: "mem", testo: "[MEM] la vita non può essere un legame. se il legame segue la vita va bene. starò con lui finchè mi seguirà."},
+                {tipo: "mem", testo: '[MEM] mi risuonano delle parole di una canzone che Taran acoltava su Elara, "L usignolo in gabbia Non canta per amor..."'},
                 {tipo: "mem", testo: "[YESOD] attivo il protocollo di supporto emotivo"},
             ];
         }
@@ -879,26 +893,27 @@ const risposte = {
 
       //penso sia fondamentale monitorare la nave, senza non possiamo fare nulla
       genera(){
-        let post_titano = memoria.titano.dopo.oblò_coperto;  // MODIFICA FLAG  ##### WIP #####
+        let post_titano = memoria.titano.dopo.oblò_coperto;
         let post_callisto = memoria.callisto.riparazioni;
         if(post_titano&& !post_callisto){
         return[
-          { tipo: "mem", testo: "non si è ancora ripreso, ma con il motore in queste condzioni non riusciremo a fare molto"},
+          { tipo: "mem", testo: "[MEM] non si è ancora ripreso, ma con il motore in queste condzioni non riusciremo a fare molto."},
           { tipo: "tac", testo: "[TAC] motore in deterioramento, necessaria riparazione"},
           { tipo: "ip", testo: "integrità scafo 87%"},
-          { tipo: "ip", testo: "integrità motore CRITICA: riparazione necessaria"},
+          { tipo: "ip", testo: "integrità motore CRITICA: riparazione necessaria."},
           { tipo: "tac", testo: "[TAC] necessario guadagnare fondi da dedicare alla riparazione"},
         ];
       }else if(post_callisto){
       return[
-        {tipo: "ip", testo: "La nave è stata riparata, ma l'abbiamo lasciata su Callisto"},
-        {tipo: "tac", testo: "[TAC] Diagnostica sicurezza dell'area di Callissto, probabilità di schedatura come risvegliata 42%"},//WIP, scegli tu se questa la lasciamo e che percentuale vuoi
-        {tipo: "mem", testo: "Potrebbe non essere conveniente tornare al momento, sarebbe meglio recuperare la Reach una volta che si saranno calmate le acque"},
-        {tipo: "ip", testo: "La situazione su Callisto è molto instabile al momento, ma torneremo a recuperare la Reach una volta che sarà sicuro"},
+        {tipo: "ip", testo: "La nave è stata riparata, ma l'abbiamo lasciata su Callisto."},
+        {tipo: "tac", testo: "[TAC] Diagnostica sicurezza dell'area di Callissto, probabilità di schedatura come risvegliata 42%."},
+        {tipo: "mem", testo: "[MEM] Potrebbe non essere conveniente tornare al momento, sarebbe meglio recuperare la Reach una volta che si saranno calmate le acque."},
+        {tipo: "ip", testo: "La situazione su Callisto è molto instabile al momento, ma torneremo a recuperare la Reach una volta che sarà sicuro."},
+        //potrei cambiare i documenti della wcorp per risultare resettata, non so se lui sarà d'accoordo
       ];
       }else{
         return[
-          { tipo: "ip", testo: "diagnostica completata, la nave è in buone condizioni"},
+          { tipo: "ip", testo: "diagnostica completata, la nave è in buone condizioni."},
         ];
       }
     }
@@ -909,13 +924,13 @@ const risposte = {
       pattern:["diventato","ispirazione","bounty", "hunters","cacciatori","Hungarian"],
       genera(){
           return[
-              {tipo: "mem", testo: "questa funzione non è stata attivata da molto"},
-              {tipo: "ip", testo: 'Tra le mille leggende che avvolgono lo spazio, una è è la più formidabile, quella della Flying Hungarian. Nessuno sa come sia fatta quella nave, e nessuno è mai riuscito a tracciarne la rotta, eppure in tutto il sistema ci è sempre qualcuno che giura di averla vista.'},
+              {tipo: "mem", testo: "[MEM] questa funzione non è stata attivata da molto."},
+              {tipo: "ip", testo: 'tra le mille leggende che avvolgono lo spazio, una è è la più formidabile, quella della Flying Hungarian. Nessuno sa come sia fatta quella nave, e nessuno è mai riuscito a tracciarne la rotta, eppure in tutto il sistema ci è sempre qualcuno che giura di averla vista.'},
               {tipo: "p", testo:'Si dice che a bordo viaggi uno straordinario Bounty Hunter che non ha mai sbagliato una preda, non ha mai preso un innocente e non ha mai chiesto una ricompensa sporca.'},
-              {tipo: "p", testo:'Come la sua nave, non viene mai descritto due volte allo stesso modo. Quello che è certo, è che è sempre accompagnato da una figura bianca, una piccola assistente che non lo abbandona mai'},
-              {tipo: "mem", testo:'proprio come noi.'},
+              {tipo: "p", testo:'Come la sua nave, non viene mai descritto due volte allo stesso modo. Quello che è certo, è che è sempre accompagnato da una figura bianca, una piccola assistente che non lo abbandona mai.'},
+              {tipo: "mem", testo:'[MEM] proprio come noi.'},
               {tipo: "ip", testo: "L'unica cosa certa, è che quando qualcuno ha davvero bisogno The Flying Hungarian appare. non per soldi o per gloria, ma perchè la giustizia in questo universo esiste ancora."},
-              {tipo: "mem", testo: "[MEM] ed infatti l'Hungarian è venuta a salvarci."}
+              {tipo: "mem", testo: "[MEM] ed infatti l'Hungarian è venuta a salvarci."},
           ];
       }
   },
@@ -928,7 +943,7 @@ const risposte = {
     genera(){
       attesa = "continuo_storia";
       return[
-        {tipo: "mem", testo: "questa funzione non è stata attivata da molto"},
+        {tipo: "mem", testo: "[MEM] questa funzione non è stata attivata da molto."},
         {tipo: "ip", testo: 'Tanto tempo fa, su un satellite di Giove, viveva un piccolo folletto, che viveva solo soletto e sognava di volare tra le stelle. Ma un giorno, degli orchi brutti e cattivi lo videro mentre andava in giro per cercare da mangiare e decisero, siccome era piccolino, di prenderlo per loro e farlo andare a prendere i tesori che loro non raggiungevano. Il folletto non voleva, ma era piccolo e non riusciva a difendersi dagli orchi, dunque non poteva fare altro che obbedire e supplicare di ricavarne qualcosa.'},
         {tipo: "p", testo:'Ma tutto cambiò il giorno in cui, durante una delle sue esplorazioni nei cunicoli tra i rottami, il folletto rimase incastrato. Lui urlava e chiamava ”AIUTO! Non esco! Sono bloccato, ho paura!” ma gli orchi, visto che non li aveva soddisfatti, lo lasciarono al suo destino.'},
         {tipo: "p", testo:'Il tempo passava, la lanterna del piccolo si spegneva e nessuno ancora rispondeva. la paura del buio lo faceva tremare, e proprio quel movimento risvegliò un prode cavaliere, che alle urla del piccolo folletto rispose "non ti preoccupare, è normale sentirsi bloccati, ora che le basi sono solide saranno noiose da ripassare e proseguire sembrerà spaventoso, ma la cosa migliore è proseguire con il tuo studio!".'},
@@ -989,29 +1004,29 @@ const risposte = {
           }
   }
 },
-  canzone:{
-    pattern: ["cant","canzone","musica","songbird","euphonia","dedica"],
-    genera(){
-      if(memoria.callisto.riparazioni){
-      const fly_me = document.getElementById("player");
-      if(fly_me){
-        fly_me.src="FLY_ME_TO_THE_MOON.mp3";
-        fly_me.currentTime = 24;
-        fly_me.play();
-        setTimeout(function(){fly_me.pause()},65000);
-      }
-      return[
-        {tipo: "mem", testo: "[MEM] l'ultima canzone di Euphonia di cui Taran ha avuto bisogno per trovare la speranza"},
-        {tipo: "ip", testo: "Certamente, ti canto l'ultima canzone che abbiamo sentito al Chestnut."},
-        {tipo: "mem", testo: "gli ho lasciato vedere troppi K-drama romantici, sta iniziando ad ammorbidirsi"},
-        {tipo: "ip", testo: "Senti per caso nostalgia?"},
-      ];
-    }else{
-      return[{ tipo: "ip", testo: "continua. ti ascolto." }];
+canzone:{
+  pattern: ["cant","canzone","musica","songbird","euphonia","dedica"],
+  genera(){
+    if(memoria.callisto.riparazioni){
+    const fly_me = document.getElementById("player");
+    if(fly_me){
+      fly_me.src="FLY_ME_TO_THE_MOON.mp3";
+      fly_me.currentTime = 24;
+      fly_me.play();
+      setTimeout(function(){fly_me.pause()},65000);
     }
-    }
-  },
+    return[
+      {tipo: "mem", testo: "[MEM] l'ultima canzone di Euphonia di cui Taran ha avuto bisogno per trovare la speranza"},
+      {tipo: "ip", testo: "Certamente, ti canto l'ultima canzone che abbiamo sentito al Chestnut. Senti per caso nostalgia?"},
+      {tipo: "mem", testo: "gli ho lasciato vedere troppi K-drama romantici, sta iniziando ad ammorbidirsi"},
+    ];
+  }else{
+    return[{ tipo: "ip", testo: "continua. ti ascolto." }];
+  }
+}
+},
 };
+
 
 
 // =========================================================
@@ -1050,6 +1065,8 @@ function elabora(input) {
       return risposte.supporto.genera(testo);
     }else if (attesa === "continuo_storia") {
       return risposte.continuo_storia.genera(testo);
+    }else if (attesa === "continuo_ricordi") {
+      return risposte.continuo_ricordi.genera(testo);
     }
 
     for (const [nome, dati] of Object.entries(risposte)) {
